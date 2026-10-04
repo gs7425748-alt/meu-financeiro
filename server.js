@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const BASE_DIR = __dirname;
 
 const MIME_TYPES = {
@@ -56,6 +56,6 @@ const server = http.createServer((req, res) => {
     });
 });
 
-server.listen(PORT, '127.0.0.1', () => {
+server.listen(PORT, '0.0.0.0', () => {
     console.log(`[MEU FINANCEIRO] Servidor ativo em http://localhost:${PORT}`);
 });
