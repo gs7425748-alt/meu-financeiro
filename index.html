@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth.css">
+    <script src="auth.js"></script>
 </head>
 <body>
     <!-- Sidebar -->
@@ -112,6 +114,9 @@
                     <span>Olá, <strong id="userName">Usuário</strong></span>
                     <button class="btn-icon" onclick="editUserName()" title="Editar nome"><i class="fas fa-pen"></i></button>
                 </div>
+                <button class="theme-toggle mf-logout-btn" id="logoutBtn" title="Sair da conta" onclick="MFAuth.logout()">
+                    <i class="fas fa-right-from-bracket"></i>
+                </button>
             </div>
         </header>
 

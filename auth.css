@@ -1,0 +1,316 @@
+/* =====================================================
+   MEU FINANCEIRO — TELA DE LOGIN / CADASTRO
+   ===================================================== */
+
+/* Enquanto não houver sessão, esconde o app por baixo */
+html.mf-auth-pending body > *:not(#mfAuth) {
+    visibility: hidden;
+}
+
+#mfAuth {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: #05060a;
+    color: #e5e7eb;
+    overflow-y: auto;
+}
+
+#mfAuth * { box-sizing: border-box; }
+
+/* ---------- Painel da marca (esquerda) ---------- */
+.mfa-brand {
+    flex: 1.1;
+    position: relative;
+    padding: 56px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.35), transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(16, 185, 129, 0.28), transparent 45%),
+        linear-gradient(160deg, #0b1020 0%, #05060a 100%);
+}
+
+.mfa-brand::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+}
+
+.mfa-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+}
+
+.mfa-logo-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #6366f1, #10b981);
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+}
+
+.mfa-hero { position: relative; z-index: 1; max-width: 480px; }
+
+.mfa-hero h1 {
+    font-size: 2.6rem;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0 0 16px;
+    color: #fff;
+}
+
+.mfa-hero h1 span {
+    background: linear-gradient(90deg, #818cf8, #34d399);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.mfa-hero p {
+    color: #9ca3af;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    margin: 0 0 32px;
+}
+
+.mfa-features { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+
+.mfa-features li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #d1d5db;
+    font-size: 0.95rem;
+}
+
+.mfa-features i {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #34d399;
+    flex-shrink: 0;
+}
+
+.mfa-brand-footer {
+    position: relative;
+    z-index: 1;
+    color: #6b7280;
+    font-size: 0.8rem;
+}
+
+/* ---------- Painel do formulário (direita) ---------- */
+.mfa-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    background: #0a0a0c;
+    border-left: 1px solid #1f1f24;
+}
+
+.mfa-card { width: 100%; max-width: 400px; }
+
+.mfa-card h2 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+    color: #fff;
+}
+
+.mfa-sub { color: #9ca3af; margin: 0 0 28px; font-size: 0.93rem; }
+
+.mfa-field { margin-bottom: 16px; }
+
+.mfa-field label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #d1d5db;
+    margin-bottom: 7px;
+}
+
+.mfa-input-wrap { position: relative; }
+
+.mfa-input-wrap > i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+    font-size: 0.9rem;
+    pointer-events: none;
+}
+
+.mfa-input-wrap input {
+    width: 100%;
+    padding: 13px 44px 13px 40px;
+    border-radius: 12px;
+    border: 1px solid #26262d;
+    background: #111116;
+    color: #f3f4f6;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.mfa-input-wrap input::placeholder { color: #4b5563; }
+
+.mfa-input-wrap input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
+}
+
+.mfa-eye {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+}
+.mfa-eye:hover { color: #d1d5db; }
+
+.mfa-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4px 0 22px;
+    font-size: 0.85rem;
+}
+
+.mfa-check { display: flex; align-items: center; gap: 8px; color: #9ca3af; cursor: pointer; }
+.mfa-check input { accent-color: #6366f1; width: 16px; height: 16px; }
+
+.mfa-link {
+    background: none;
+    border: none;
+    color: #818cf8;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+    padding: 0;
+}
+.mfa-link:hover { color: #a5b4fc; text-decoration: underline; }
+
+.mfa-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.97rem;
+    font-family: inherit;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.35);
+    transition: transform .15s, box-shadow .2s, opacity .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.mfa-btn:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(79, 70, 229, 0.45); }
+.mfa-btn:disabled { opacity: .6; cursor: wait; transform: none; }
+
+.mfa-btn.mfa-btn-success { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 10px 25px rgba(16,185,129,.3); }
+
+.mfa-switch { text-align: center; margin-top: 24px; color: #9ca3af; font-size: 0.9rem; }
+
+.mfa-msg {
+    display: none;
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    margin-bottom: 16px;
+    line-height: 1.4;
+}
+.mfa-msg.show { display: block; }
+.mfa-msg.error { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; }
+.mfa-msg.ok { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; }
+
+/* Força da senha */
+.mfa-strength { display: flex; gap: 5px; margin-top: 8px; }
+.mfa-strength span { flex: 1; height: 4px; border-radius: 4px; background: #26262d; transition: background .25s; }
+.mfa-strength-label { font-size: 0.75rem; color: #6b7280; margin-top: 5px; min-height: 1em; }
+
+/* Código de recuperação */
+.mfa-code-box {
+    background: #111116;
+    border: 1px dashed #4f46e5;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    margin: 18px 0;
+}
+.mfa-code {
+    font-family: 'Courier New', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #a5b4fc;
+    word-break: break-all;
+}
+.mfa-code-actions { margin-top: 12px; }
+
+.mfa-view { display: none; animation: mfaFade .35s ease; }
+.mfa-view.active { display: block; }
+
+@keyframes mfaFade {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+}
+
+.mfa-note {
+    font-size: 0.78rem;
+    color: #6b7280;
+    margin-top: 18px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Botão de sair no cabeçalho do app */
+.mf-logout-btn { color: var(--danger, #ef4444) !important; }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 900px) {
+    #mfAuth { flex-direction: column; }
+    .mfa-brand { flex: none; padding: 28px 24px; }
+    .mfa-hero h1 { font-size: 1.7rem; margin-bottom: 8px; }
+    .mfa-hero p { font-size: 0.9rem; margin-bottom: 0; }
+    .mfa-features, .mfa-brand-footer { display: none; }
+    .mfa-logo { margin-bottom: 18px; }
+    .mfa-panel { flex: 1; border-left: none; border-top: 1px solid #1f1f24; align-items: flex-start; }
+}

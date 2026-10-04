@@ -7106,6 +7106,12 @@ function refreshAll() {
 // INIT (integrado ao AxisDB)
 // ============================================
 async function init() {
+    // Aguardar login (auth.js) antes de carregar qualquer dado
+    let authUser = null;
+    if (typeof MFAuth !== 'undefined') {
+        authUser = await MFAuth.ready();
+    }
+
     // Inicializar o banco de dados AxisDB
     if (typeof AxisDB !== 'undefined') {
         await AxisDB.init();
@@ -7120,6 +7126,11 @@ async function init() {
 
         // Recarregar dados do AxisDB (pode ter sido recuperado)
         appData = loadData();
+    }
+
+    // Usar o nome da conta como saudação, se ainda não houver um nome definido
+    if (authUser && authUser.name && (!appData.userName || appData.userName === 'Usuário')) {
+        appData.userName = authUser.name;
     }
 
     startApp();
